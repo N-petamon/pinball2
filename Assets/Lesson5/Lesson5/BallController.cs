@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class BallController : MonoBehaviour
 {
+    public GameObject scoreText; 
+    int score = 0;
 
     //ボールが見える可能性のあるz軸の最大値
     private float visiblePosZ = -6.5f;
@@ -27,5 +29,26 @@ public class BallController : MonoBehaviour
             //GameoverTextにゲームオーバを表示
             this.gameoverText.GetComponent<Text>().text = "Game Over";
         }
+    }
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "LargeCloudTag")
+        {
+            score += 20;
+        }
+        else if (collision.gameObject.tag == "SmallCloudTag")
+        {
+            score += 15;
+        }
+        else if (collision.gameObject.tag == "LargeStarTag")
+        {
+            score += 10;
+        }
+        else if (collision.gameObject.tag == "SmallStarTag")
+        {
+            score += 5;
+        }
+
+        scoreText.GetComponent<Text>().text = "" + score;
     }
 }
